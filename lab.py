@@ -72,7 +72,7 @@ def gen_inventory(size_x, size_y, items, storaged_items):
         for item in items_temp:
             if items_temp[item] <= size_x - filled:
                 for cell in range(size_x - filled):
-                    inventory[line][cell] = item
+                    inventory[line][cell] = f'[{item}]'
                 filled += items_temp[item]
                 used.append(item)
 
@@ -97,6 +97,6 @@ if __name__ == '__main__':
     print('Итоговые очки выживания:', 
           BASE_SURVIVE_POINTS + 2*res_sum - max_sum)
     for line in inventory:
-        print(*line)
+        print(*line, sep=',')
 
     
