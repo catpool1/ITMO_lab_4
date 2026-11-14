@@ -95,12 +95,14 @@ def draw_result(size_x=SIZE_X, size_y=SIZE_Y,
     
     inventory = gen_inventory(size_x, size_y, items, storaged_items)
 
-
-    print('Итоговые очки выживания:', 
-          base_survive_points + 2*res_sum - max_sum)
-    for line in inventory:
-        print(*line, sep=',')
+    res_points = base_survive_points + 2*res_sum - max_sum
+    if res_points > 0:
+        print('Итоговые очки выживания:', res_points)
+        for line in inventory:
+            print(*line, sep=',')
+    else:
+        print('Err')
 
 
 if __name__ == '__main__':
-    draw_result()
+    draw_result(7, 1)
