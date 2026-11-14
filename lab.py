@@ -1,7 +1,9 @@
 SIZE_X = 4
 SIZE_Y = 2
+BASE_SURVIVE_POINTS = 20
 
-storaged_item = {'price': 5, 'cells': 1}
+
+storaged_item = {'name': 'i', 'price': 5, 'cells': 1}
 items = {
     'r': {'price': 25, 'cells': 3},
     'p': {'price': 15, 'cells': 2},
@@ -15,6 +17,9 @@ items = {
     's': {'price': 20, 'cells': 2},
     'c': {'price': 20, 'cells': 2}
 }
+
+max_sum = sum(x['price'] for x in items.values())
+
 
 
 def gen_table_memo(items, max_cells):
@@ -54,7 +59,7 @@ def gen_table_memo(items, max_cells):
     return table[-1][-1]
 
 
-def draw_inventory(size_x, size_y, items, storaged_items):
+def gen_inventory(size_x, size_y, items, storaged_items):
     inventory = [[[] for _ in range(size_x)] for _ in range(size_y)]
     items_temp = dict()
     for item in storaged_items:
@@ -78,6 +83,20 @@ def draw_inventory(size_x, size_y, items, storaged_items):
 
 
 if __name__ == '__main__':
-    max_sum, storaged_items = gen_table_memo(items, SIZE_X*SIZE_Y - storaged_item['cells'])
-    print(max_sum, storaged_items)
-    print(draw_inventory(SIZE_X, SIZE_Y, items, storaged_items))
+    res_sum, storaged_items = gen_table_memo(items, 
+                                SIZE_X*SIZE_Y - storaged_item['cells'])
+
+    items[storaged_item['name']] = dict()
+    items[storaged_item['name']]['price'] = storaged_item['price']
+    items[storaged_item['name']]['cells'] = storaged_item['cells']
+    storaged_items.add(storaged_item['name'])
+    
+    inventory = gen_inventory(SIZE_X, SIZE_Y, items, storaged_items)
+
+
+    print('Итоговые очки выживания:', 
+          BASE_SURVIVE_POINTS + 2*res_sum - max_sum)
+    for line in inventory:
+        print(*line)
+
+    
