@@ -82,21 +82,25 @@ def gen_inventory(size_x, size_y, items, storaged_items):
     return inventory
 
 
-if __name__ == '__main__':
+def draw_result(size_x=SIZE_X, size_y=SIZE_Y, 
+                items=items, storaged_item=storaged_item, 
+                base_survive_points=BASE_SURVIVE_POINTS):
     res_sum, storaged_items = gen_table_memo(items, 
-                                SIZE_X*SIZE_Y - storaged_item['cells'])
+                                size_x*size_y - storaged_item['cells'])
 
     items[storaged_item['name']] = dict()
     items[storaged_item['name']]['price'] = storaged_item['price']
     items[storaged_item['name']]['cells'] = storaged_item['cells']
     storaged_items.add(storaged_item['name'])
     
-    inventory = gen_inventory(SIZE_X, SIZE_Y, items, storaged_items)
+    inventory = gen_inventory(size_x, size_y, items, storaged_items)
 
 
     print('Итоговые очки выживания:', 
-          BASE_SURVIVE_POINTS + 2*res_sum - max_sum)
+          base_survive_points + 2*res_sum - max_sum)
     for line in inventory:
         print(*line, sep=',')
 
-    
+
+if __name__ == '__main__':
+    draw_result()
