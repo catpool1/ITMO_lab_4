@@ -130,5 +130,9 @@ def walkthrouhg(size=SIZE_X*SIZE_Y, base_survive_points=BASE_SURVIVE_POINTS, ite
 
 
 if __name__ == '__main__':
+<<<<<<< HEAD
     draw_result(2, 4)
+=======
+    draw_result(4, 2)
+>>>>>>> d646ff39f0c62f16d3c57cdfd1dbf0b8d3b33d9c
     walkthrouhg()
