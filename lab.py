@@ -1,3 +1,5 @@
+from itertools import combinations
+
 SIZE_X = 4
 SIZE_Y = 2
 BASE_SURVIVE_POINTS = 20
@@ -104,5 +106,29 @@ def draw_result(size_x=SIZE_X, size_y=SIZE_Y,
         print('Err')
 
 
+def walkthrouhg(size=SIZE_X*SIZE_Y, base_survive_points=BASE_SURVIVE_POINTS, items=items, storaged_item=storaged_item):
+    items_list = list(items.keys())
+
+    n = 0
+
+    for cnt in range(len(items_list) + 1):
+        for var in combinations(items_list, cnt):
+            cur_price = base_survive_points + storaged_item['price']
+            cur_weight = size - storaged_item['cells']
+            for item in var:
+                cur_price += items[item]['price']
+                cur_weight -= items[item]['cells']
+
+            for x in items_list:
+                if x not in var:
+                    cur_price -= items[x]['price']
+                if cur_price <= 0:
+                    break
+            
+            if cur_weight >= 0 and cur_price > 0:
+                print(*var, storaged_item['name'])
+
+
 if __name__ == '__main__':
-    draw_result(7, 1)
+    draw_result(2, 4)
+    walkthrouhg()
